@@ -89,9 +89,12 @@ export default function OnboardingPage() {
     }
   }
 
-  const handleDateSelect = (date: Date | undefined) => {
-    setDueDate(date)
-  }
+  const handleDateSelect = (selected: Date | undefined) => {
+    if (selected) {
+      setDate(selected);
+    }
+  };
+  
 
   const nextStep = () => {
     if (step === 1 && !name) {
