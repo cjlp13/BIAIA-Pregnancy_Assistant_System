@@ -53,7 +53,7 @@ export function TopNav() {
         </div>
 
         <div className="flex-1 flex justify-center">
-          <nav className="mx-auto flex items-center space-x-6">
+          <nav className="flex items-center space-x-6">
             <Link
               href="/dashboard"
               className={cn(
