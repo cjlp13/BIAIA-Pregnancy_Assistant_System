@@ -82,7 +82,6 @@ export default function OnboardingPage() {
         due_date: dueDate.toISOString(),
         symptoms: symptoms ? symptoms.split(",").map((s) => s.trim()) : [],
         allergies: allergies ? allergies.split(",").map((a) => a.trim()) : [],
-        onboarding_complete: true,
       })
 
       if (error) throw error
@@ -96,12 +95,11 @@ export default function OnboardingPage() {
     }
   }
 
-  const handleDateSelect = (selected: Date | undefined) => {
-    if (selected) {
-      setDate(selected);
-    }
-  };
-  
+  // Handle date selection separately from form submission
+  const handleDateSelect = (date: Date | undefined) => {
+    setDueDate(date)
+    // Don't do anything else here - just update the state
+  }
 
   const nextStep = () => {
     console.log("Current step:", step)
