@@ -13,17 +13,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bell, Settings, LogOut, User } from "lucide-react"
+import { Bell, LogOut, User, Settings, Sun, Moon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { useTheme } from "next-themes"
 
 export function TopNav() {
   const pathname = usePathname()
   const { user, signOut } = useSupabaseAuth()
   const { notifications, unreadCount, markAsRead } = useNotifications()
+  const { theme, setTheme } = useTheme()
 
   // Get user initials for avatar
   const getUserInitials = () => {
-    if (!user?.email) return "U"
+    if (!user?.email) return "B"
     return user.email.charAt(0).toUpperCase()
   }
 
@@ -39,18 +41,18 @@ export function TopNav() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-14 items-center">
-        <div className="mr-4 flex">
+    <header className="sticky top-0 z-40 border-b bg-background">
+      <div className="container flex h-16 items-center justify-between px-4">
+        <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
               <span className="font-bold">B</span>
             </div>
-            <span className="hidden font-bold sm:inline-block">BIAIA</span>
+            <span className="font-bold">BIAIA</span>
           </Link>
         </div>
 
-        <nav className="hidden flex-1 items-center space-x-4 md:flex">
+        <nav className="mx-auto flex items-center space-x-6">
           <Link
             href="/dashboard"
             className={cn(
@@ -98,14 +100,14 @@ export function TopNav() {
           </Link>
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
+        <div className="flex items-center space-x-4 ml-auto">
           {/* Notifications dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon" className="relative">
                 <Bell className="h-5 w-5" />
                 {unreadCount > 0 && (
-                  <span className="absolute right-1 top-1 flex h-4 w-4 items-center justify-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
+                  <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
                     {unreadCount > 9 ? "9+" : unreadCount}
                   </span>
                 )}
@@ -149,6 +151,11 @@ export function TopNav() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Theme toggle */}
+          <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </Button>
 
           {/* User dropdown */}
           <DropdownMenu>
