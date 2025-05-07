@@ -1,8 +1,5 @@
 "use client"
 
-import { cn } from "@/lib/utils"
-
-import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useSupabaseAuth } from "@/components/providers/supabase-auth-provider"
@@ -26,18 +23,10 @@ export function TopNav() {
   const { notifications, unreadCount, markAsRead } = useNotifications()
   const { theme, setTheme } = useTheme()
 
-  // Get user on component mount
-  useEffect(() => {
-    async function getUser() {
-      const { data } = await supabase.auth.getUser()
-      setUser(data.user)
-    }
-    getUser()
-  })
-
-  const handleSignOut = async () => {
-    await supabase.auth.signOut()
-    router.push("/login")
+  // Get user initials for avatar
+  const getUserInitials = () => {
+    if (!user?.email) return "B"
+    return user.email.charAt(0).toUpperCase()
   }
 
   // Get recent notifications (last 5)
@@ -53,7 +42,7 @@ export function TopNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
-      <div className="container flex h-16 items-center px-4">
+      <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center space-x-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
