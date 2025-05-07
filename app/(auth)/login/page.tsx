@@ -37,11 +37,15 @@ export default function LoginPage() {
           .eq("user_id", data.session.user.id)
           .single()
 
-        if (profileError || !profileData) {
-          // If no profile exists or there's an error, user hasn't completed onboarding
+        console.log("Profile data on auto-login:", profileData)
+
+        if (profileData.onboarding_complete !== true) {
+          // If no profile exists, there's an error, or onboarding is not complete
+          console.log("Redirecting to onboarding: profile incomplete or not found")
           window.location.href = "/onboarding"
         } else {
           // User has completed onboarding, go to dashboard
+          console.log("Redirecting to dashboard: onboarding complete")
           window.location.href = "/dashboard"
         }
       }
@@ -81,13 +85,17 @@ export default function LoginPage() {
         .eq("user_id", data.user.id)
         .single()
 
+      console.log("Profile data after login:", profileData)
+
       // Use window.location for a hard redirect
       setTimeout(() => {
-        if (profileError || !profileData) {
-          // If no profile exists or there's an error, user hasn't completed onboarding
+        if (profileError || !profileData || profileData.onboarding_complete !== true) {
+          // If no profile exists, there's an error, or onboarding is not complete
+          console.log("Redirecting to onboarding: profile incomplete or not found")
           window.location.href = "/onboarding"
         } else {
           // User has completed onboarding, go to dashboard
+          console.log("Redirecting to dashboard: onboarding complete")
           window.location.href = "/dashboard"
         }
       }, 1000)
