@@ -19,6 +19,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
+
 export default function ProfilePage() {
   const [user, setUser] = useState<any>(null)
   const [profile, setProfile] = useState<any>(null)
@@ -76,41 +77,53 @@ export default function ProfilePage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
+  
     if (!user) {
       setError("You must be logged in to update your profile")
       return
     }
-
+  
     if (!dueDate) {
       setError("Please select your due date")
       return
     }
-
+  
     setIsLoading(true)
     setError(null)
     setSuccess(null)
-
+  
     try {
-      const { error } = await supabase
+      console.log("Submitting update for user ID:", user.id)
+  
+      const { data, error, status } = await supabase
         .from("profiles")
         .update({
           name,
-          due_date: dueDate.toISOString(),
+          due_date: format(dueDate, "yyyy-MM-dd"),
           symptoms: symptoms ? symptoms.split(",").map((s) => s.trim()) : [],
           allergies: allergies ? allergies.split(",").map((a) => a.trim()) : [],
         })
         .eq("user_id", user.id)
-
+        .select() // Add this to return the updated row(s)
+  
+      console.log("Update response status:", status)
+      console.log("Returned data:", data)
+      console.log("Error if any:", error)
+  
       if (error) throw error
-
+      if (!data || data.length === 0) {
+        throw new Error("No matching profile found to update")
+      }
+  
       setSuccess("Profile updated successfully")
     } catch (error: any) {
+      console.error("Update failed:", error.message)
       setError(error.message || "Failed to update profile")
     } finally {
       setIsLoading(false)
     }
   }
+  
 
   const handleSignOut = async () => {
     try {

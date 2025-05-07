@@ -20,9 +20,16 @@ export default function LoginPage() {
   const [loginStatus, setLoginStatus] = useState<string | null>(null)
   const [debugInfo, setDebugInfo] = useState<string | null>(null)
   const router = useRouter()
-  const searchParams = useSearchParams()
-  const isNewUser = searchParams.get("newUser") === "true"
 
+  const [isClient, setIsClient] = useState(false)
+  const [isNewUser, setIsNewUser] = useState(false)
+
+  useEffect(() => {
+    setIsClient(true) // Ensure we're in the client side
+    const searchParams = new URLSearchParams(window.location.search)
+    const newUser = searchParams.get("newUser") === "true"
+    setIsNewUser(newUser)
+  }, [])
   // Check if already logged in
   useEffect(() => {
     const checkSession = async () => {
@@ -110,6 +117,10 @@ export default function LoginPage() {
 
   const handleDebug = () => {
     router.push("/debug")
+  }
+
+  if (!isClient) {
+    return <div>Loading...</div>
   }
 
   return (
