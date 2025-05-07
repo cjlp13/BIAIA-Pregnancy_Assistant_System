@@ -165,7 +165,7 @@ export function BabyDevelopmentImage({ week, size, className = "" }: BabyDevelop
         {renderSvgImage()}
       </div>
       <div className="mt-3 text-center">
-        <p className="font-medium text-black">Week {week}</p>
+        <p className="font-medium">Week {week}</p>
         <p className="text-sm text-[#F655A6] font-medium">Size: {size || getSizeDescription()}</p>
       </div>
     </div>

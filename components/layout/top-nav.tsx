@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { supabase } from "@/lib/supabase/client"
@@ -30,7 +30,7 @@ export function TopNav() {
   const { unreadCount } = useNotifications()
 
   // Get user on component mount
-  useState(() => {
+  useEffect(() => {
     async function getUser() {
       const { data } = await supabase.auth.getUser()
       setUser(data.user)
@@ -50,7 +50,7 @@ export function TopNav() {
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
-      <div className="container flex h-16 items-center justify-between px-4">
+      <div className="container flex h-16 items-center px-4">
         <div className="flex items-center gap-2">
           <Sheet>
             <SheetTrigger asChild>
@@ -102,26 +102,55 @@ export function TopNav() {
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center gap-6">
-          {[
-            { name: "Dashboard", href: "/dashboard" },
-            { name: "Tracker", href: "/tracker" },
-            { name: "Journal", href: "/journal" },
-            { name: "Chat", href: "/chat" },
-            { name: "Appointments", href: "/appointments" },
-          ].map((item) => (
+        <div className="flex-1 flex justify-center">
+          <nav className="mx-auto flex items-center space-x-6">
             <Link
-              key={item.href}
-              href={item.href}
+              href="/dashboard"
               className={cn(
-                "text-sm transition-colors hover:text-foreground",
-                pathname === item.href ? "text-foreground font-medium" : "text-muted-foreground",
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
               )}
             >
-              {item.name}
+              Dashboard
             </Link>
-          ))}
-        </nav>
+            <Link
+              href="/tracker"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/tracker" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Tracker
+            </Link>
+            <Link
+              href="/journal"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/journal" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Journal
+            </Link>
+            <Link
+              href="/chat"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/chat" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Chat
+            </Link>
+            <Link
+              href="/appointments"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/appointments" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Appointments
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" className="relative" asChild>
