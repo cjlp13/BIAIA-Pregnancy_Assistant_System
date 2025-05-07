@@ -19,7 +19,6 @@ import {
 import { Bell, LogOut, Menu, Moon, Settings, Sun, User } from "lucide-react"
 import { useTheme } from "next-themes"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { useNotifications } from "@/components/providers/notification-provider"
 
@@ -178,7 +177,6 @@ export function TopNav() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-
         </div>
       </div>
     </header>
