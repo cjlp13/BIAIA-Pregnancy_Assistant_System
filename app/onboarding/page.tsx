@@ -82,7 +82,6 @@ export default function OnboardingPage() {
         due_date: dueDate.toISOString(),
         symptoms: symptoms ? symptoms.split(",").map((s) => s.trim()) : [],
         allergies: allergies ? allergies.split(",").map((a) => a.trim()) : [],
-        onboarding_complete: true,
       })
 
       if (error) throw error
