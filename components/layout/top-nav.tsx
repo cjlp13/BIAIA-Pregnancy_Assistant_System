@@ -147,7 +147,6 @@ export function TopNav() {
             <DropdownMenuContent align="end">
               <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
               <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("system")}>System</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
