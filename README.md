@@ -60,10 +60,10 @@ If you prefer to run the web app locally, follow these steps:
 * **Supabase:** Handles user authentication and stores users, journal entries, appointments, and other data.
 
 ## 👥 Contributors
-* [Justine](https://github.com/cjlp13)
-* [Vivs](https://github.com/VivieneGarcia)  
-* [Elwin](https://github.com/elwintheDEVisor) 
-* [John](https://github.com/John-Yumul) 
+* [Justine Padua](https://github.com/cjlp13) 
+* [Viviene Garcia](https://github.com/VivieneGarcia)  
+* [Elwin Barredo](https://github.com/elwintheDEVisor) 
+* [John Yumul](https://github.com/John-Yumul)  
 
 ## 🌷 Acknowledgments
 * [Ma'am Fatima](https://github.com/marieemoiselle) - CS 322: Software Engineering Professor
