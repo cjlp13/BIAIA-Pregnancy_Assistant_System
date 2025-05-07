@@ -237,6 +237,14 @@ export default function AppointmentsPage() {
         if (error) throw error
 
         setSuccess("Appointment updated successfully")
+
+        // Show browser notification if supported and enabled
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("Appointment Updated", {
+            body: `Your appointment "${title}" has been updated for ${format(date, "MMMM d, yyyy")} at ${time}`,
+            icon: "/favicon.ico",
+          })
+        }
       } else {
         // Create new appointment
         const { error } = await supabase.from("appointments").insert({
@@ -251,6 +259,14 @@ export default function AppointmentsPage() {
         if (error) throw error
 
         setSuccess("Appointment created successfully")
+
+        // Show browser notification if supported and enabled
+        if ("Notification" in window && Notification.permission === "granted") {
+          new Notification("New Appointment Created", {
+            body: `Your appointment "${title}" is scheduled for ${format(date, "MMMM d, yyyy")} at ${time}`,
+            icon: "/favicon.ico",
+          })
+        }
       }
 
       fetchAppointments()
