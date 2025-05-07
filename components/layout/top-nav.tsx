@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { supabase } from "@/lib/supabase/client"
@@ -30,7 +30,7 @@ export function TopNav() {
   const { unreadCount } = useNotifications()
 
   // Get user on component mount
-  useState(() => {
+  useEffect(() => {
     async function getUser() {
       const { data } = await supabase.auth.getUser()
       setUser(data.user)
