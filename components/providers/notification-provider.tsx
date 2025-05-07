@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext, useEffect, useState, useRef } from "react"
 import { supabase } from "@/lib/supabase/client"
 import type { Notification, Appointment, Profile } from "@/lib/types"
 import { addDays, differenceInDays, parseISO, format, isAfter } from "date-fns"
@@ -13,19 +13,52 @@ type NotificationContextType = {
   markAllAsRead: () => void
   deleteNotification: (id: string) => void
   deleteAllNotifications: () => void
+  notificationsEnabled: boolean
+  setNotificationsEnabled: (enabled: boolean) => void
 }
 
 const NotificationContext = createContext<NotificationContextType | undefined>(undefined)
 
+// Add this function after the differenceInWeeks helper function
+function isSameDay(date1: Date, date2: Date): boolean {
+  return (
+    date1.getFullYear() === date2.getFullYear() &&
+    date1.getMonth() === date2.getMonth() &&
+    date1.getDate() === date2.getDate()
+  )
+}
+
+// Update the NotificationProvider component
 export function NotificationProvider({ children }: { children: React.ReactNode }) {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [profile, setProfile] = useState<Profile | null>(null)
   const [userId, setUserId] = useState<string | null>(null)
   const [lastJournalDate, setLastJournalDate] = useState<Date | null>(null)
+  const [notificationsEnabled, setNotificationsEnabled] = useState<boolean>(true)
+  const notificationCheckRef = useRef<NodeJS.Timeout | null>(null)
+  const processedAppointments = useRef<Set<string>>(new Set())
 
   // Calculate unread count
   const unreadCount = notifications.filter((n) => !n.read).length
+
+  // Load notification settings from localStorage
+  useEffect(() => {
+    const savedSettings = localStorage.getItem("biaia_notification_settings")
+    if (savedSettings) {
+      try {
+        const settings = JSON.parse(savedSettings)
+        setNotificationsEnabled(settings.enabled)
+      } catch (e) {
+        console.error("Error parsing notification settings", e)
+      }
+    }
+  }, [])
+
+  // Save notification settings to localStorage
+  useEffect(() => {
+    localStorage.setItem("biaia_notification_settings", JSON.stringify({ enabled: notificationsEnabled }))
+  }, [notificationsEnabled])
 
   // Load user data and generate notifications
   useEffect(() => {
@@ -68,10 +101,139 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
     }
 
     loadUserData()
-  }, [])
+
+    // Set up real-time subscription for appointments
+    const appointmentsSubscription = supabase
+      .channel("appointments-changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "appointments",
+        },
+        async (payload) => {
+          // Refresh appointments when there's a change
+          if (userId) {
+            const { data } = await supabase
+              .from("appointments")
+              .select("*")
+              .eq("user_id", userId)
+              .order("date", { ascending: true })
+
+            if (data) {
+              setAppointments(data as Appointment[])
+            }
+          }
+        },
+      )
+      .subscribe()
+
+    return () => {
+      appointmentsSubscription.unsubscribe()
+    }
+  }, [userId])
+
+  // Check for current appointments and send notifications
+  useEffect(() => {
+    // Only run if notifications are enabled
+    if (!notificationsEnabled) {
+      if (notificationCheckRef.current) {
+        clearInterval(notificationCheckRef.current)
+        notificationCheckRef.current = null
+      }
+      return
+    }
+
+    // Function to check for current appointments
+    const checkCurrentAppointments = () => {
+      if (!appointments.length) return
+
+      const now = new Date()
+      const currentTime = `${now.getHours().toString().padStart(2, "0")}:${now.getMinutes().toString().padStart(2, "0")}`
+
+      appointments.forEach((appointment) => {
+        const appointmentDate = parseISO(appointment.date)
+
+        // Check if appointment is today and time matches current time (within 1 minute)
+        if (
+          isSameDay(appointmentDate, now) &&
+          Math.abs(timeToMinutes(appointment.time) - timeToMinutes(currentTime)) <= 1
+        ) {
+          // Check if we've already processed this appointment in the last few minutes
+          const appointmentKey = `${appointment.id}-${format(now, "yyyy-MM-dd-HH-mm")}`
+          if (!processedAppointments.current.has(appointmentKey)) {
+            // Mark as processed to avoid duplicate notifications
+            processedAppointments.current.add(appointmentKey)
+
+            // Create notification
+            const notificationId = `appointment-now-${appointment.id}-${format(now, "yyyy-MM-dd-HH-mm")}`
+
+            // Add to notifications
+            const newNotification = {
+              id: notificationId,
+              title: "Appointment Now",
+              description: `Your appointment "${appointment.title}" is now`,
+              type: "appointment" as const,
+              read: false,
+              date: now,
+              expiresAt: addDays(now, 1), // Expires after 1 day
+            }
+
+            // Update notifications state
+            setNotifications((prev) => {
+              const updated = [newNotification, ...prev]
+              localStorage.setItem("biaia_notifications", JSON.stringify(updated))
+              return updated
+            })
+
+            // Show browser notification if supported
+            if ("Notification" in window && Notification.permission === "granted") {
+              new Notification("BIAIA Appointment Reminder", {
+                body: `Your appointment "${appointment.title}" is now`,
+                icon: "/favicon.ico",
+              })
+            }
+          }
+        }
+      })
+
+      // Clean up processed appointments older than 5 minutes
+      const fiveMinutesAgo = new Date(now.getTime() - 5 * 60 * 1000)
+      processedAppointments.current = new Set(
+        Array.from(processedAppointments.current).filter((key) => {
+          const timestamp = key.split("-").slice(-5).join("-")
+          return new Date(timestamp) >= fiveMinutesAgo
+        }),
+      )
+    }
+
+    // Request notification permission if needed
+    if ("Notification" in window && Notification.permission === "default") {
+      Notification.requestPermission()
+    }
+
+    // Check immediately and then set interval
+    checkCurrentAppointments()
+    notificationCheckRef.current = setInterval(checkCurrentAppointments, 60000) // Check every minute
+
+    return () => {
+      if (notificationCheckRef.current) {
+        clearInterval(notificationCheckRef.current)
+      }
+    }
+  }, [appointments, notificationsEnabled])
+
+  // Helper function to convert time string to minutes
+  function timeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(":").map(Number)
+    return hours * 60 + minutes
+  }
 
   // Generate notifications based on data
   useEffect(() => {
+    if (!notificationsEnabled) return
+
     const newNotifications: Notification[] = []
     const today = new Date()
 
@@ -173,7 +335,7 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
 
     // Save to localStorage
     localStorage.setItem("biaia_notifications", JSON.stringify(combinedNotifications))
-  }, [appointments, profile, lastJournalDate])
+  }, [appointments, profile, lastJournalDate, notificationsEnabled])
 
   // Mark notification as read
   const markAsRead = (id: string) => {
@@ -228,6 +390,8 @@ export function NotificationProvider({ children }: { children: React.ReactNode }
         markAllAsRead,
         deleteNotification,
         deleteAllNotifications,
+        notificationsEnabled,
+        setNotificationsEnabled,
       }}
     >
       {children}
