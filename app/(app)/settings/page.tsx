@@ -26,9 +26,13 @@ import { Input } from "@/components/ui/input"
 import { supabase } from "@/lib/supabase/client"
 import { useRouter } from "next/navigation"
 
+// Add the import for the notification provider
+import { useNotifications } from "@/components/providers/notification-provider"
+
+// Update the SettingsPage component to use the notification provider
 export default function SettingsPage() {
   const { theme, setTheme } = useTheme()
-  const [notificationsEnabled, setNotificationsEnabled] = useState(true)
+  const { notificationsEnabled, setNotificationsEnabled } = useNotifications()
   const [emailNotifications, setEmailNotifications] = useState(true)
   const [pushNotifications, setPushNotifications] = useState(true)
   const [reminderTime, setReminderTime] = useState("1")
@@ -80,6 +84,7 @@ export default function SettingsPage() {
     }
   }
 
+  // Update the notifications section in the return statement
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="mb-6 text-3xl font-bold">Settings</h1>

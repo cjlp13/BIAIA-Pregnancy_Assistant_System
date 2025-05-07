@@ -5,29 +5,26 @@ import { cn } from "@/lib/utils"
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { supabase } from "@/lib/supabase/client"
-import { useRouter } from "next/navigation"
+import { useSupabaseAuth } from "@/components/providers/supabase-auth-provider"
+import { useNotifications } from "@/components/providers/notification-provider"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Bell, LogOut, Menu, Moon, Settings, Sun, User } from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Bell, LogOut, User, Settings, Sun, Moon } from "lucide-react"
+import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Badge } from "@/components/ui/badge"
-import { useNotifications } from "@/components/providers/notification-provider"
 
 export function TopNav() {
   const pathname = usePathname()
-  const router = useRouter()
+  const { user, signOut } = useSupabaseAuth()
+  const { notifications, unreadCount, markAsRead } = useNotifications()
   const { theme, setTheme } = useTheme()
-  const [user, setUser] = useState<any>(null)
-  const { unreadCount } = useNotifications()
 
   // Get user on component mount
   useEffect(() => {
@@ -43,62 +40,26 @@ export function TopNav() {
     router.push("/login")
   }
 
-  // Don't show on auth pages
-  if (pathname === "/login" || pathname === "/register" || pathname === "/onboarding") {
-    return null
+  // Get recent notifications (last 5)
+  const recentNotifications = notifications.slice(0, 5)
+
+  const markAllAsRead = () => {
+    notifications.forEach((notification) => {
+      if (!notification.read) {
+        markAsRead(notification.id)
+      }
+    })
   }
 
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="container flex h-16 items-center px-4">
         <div className="flex items-center gap-2">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-5 w-5" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="left" className="w-[240px] sm:w-[300px]">
-              <div className="flex flex-col gap-6 py-4">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
-                    B
-                  </div>
-                  <span className="text-lg font-bold">BIAIA</span>
-                </div>
-                <nav className="flex flex-col gap-2">
-                  {[
-                    { name: "Dashboard", href: "/dashboard" },
-                    { name: "Weekly Tracker", href: "/tracker" },
-                    { name: "Journal", href: "/journal" },
-                    { name: "AI Chat", href: "/chat" },
-                    { name: "Appointments", href: "/appointments" },
-                    { name: "Profile", href: "/profile" },
-                  ].map((item) => (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      className={cn(
-                        "flex items-center gap-2 rounded-md px-3 py-2 text-sm transition-colors",
-                        pathname === item.href
-                          ? "bg-primary/10 text-primary"
-                          : "text-muted-foreground hover:bg-muted hover:text-foreground",
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-            </SheetContent>
-          </Sheet>
-
-          <Link href="/dashboard" className="hidden items-center gap-2 md:flex">
-            <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold">
-              B
+          <Link href="/dashboard" className="flex items-center space-x-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
+              <span className="font-bold">B</span>
             </div>
-            <span className="text-lg font-bold">BIAIA</span>
+            <span className="font-bold">BIAIA</span>
           </Link>
         </div>
 
@@ -152,57 +113,96 @@ export function TopNav() {
           </nav>
         </div>
 
-        <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="relative" asChild>
-            <Link href="/notifications">
-              <Bell className="h-5 w-5" />
-              {unreadCount > 0 && (
-                <Badge className="absolute -right-1 -top-1 h-5 w-5 rounded-full p-0 flex items-center justify-center">
-                  {unreadCount}
-                </Badge>
-              )}
-              <span className="sr-only">Notifications</span>
-            </Link>
-          </Button>
-
+        <div className="flex items-center space-x-4 ml-auto">
+          {/* Notifications dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-                <span className="sr-only">Toggle theme</span>
+              <Button variant="ghost" size="icon" className="relative">
+                <Bell className="h-5 w-5" />
+                {unreadCount > 0 && (
+                  <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-pink-500 text-[10px] font-bold text-white">
+                    {unreadCount > 9 ? "9+" : unreadCount}
+                  </span>
+                )}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setTheme("light")}>Light</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setTheme("dark")}>Dark</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-80">
+              <div className="flex items-center justify-between p-4">
+                <h3 className="font-medium">Notifications</h3>
+                {unreadCount > 0 && (
+                  <button onClick={() => markAllAsRead()} className="text-xs text-muted-foreground hover:text-primary">
+                    Mark all as read
+                  </button>
+                )}
+              </div>
+
+              {recentNotifications.length === 0 ? (
+                <div className="py-6 text-center text-sm text-muted-foreground">No notifications</div>
+              ) : (
+                <>
+                  {recentNotifications.map((notification) => (
+                    <DropdownMenuItem
+                      key={notification.id}
+                      className={`flex cursor-pointer flex-col items-start p-4 ${!notification.read ? "bg-muted/50" : ""}`}
+                      onClick={() => markAsRead(notification.id)}
+                    >
+                      <div className="flex w-full items-start justify-between gap-2">
+                        <span className="font-medium">{notification.title}</span>
+                        <span className="text-xs text-muted-foreground">
+                          {new Date(notification.date).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                        </span>
+                      </div>
+                      <p className="mt-1 text-sm text-muted-foreground">{notification.description}</p>
+                    </DropdownMenuItem>
+                  ))}
+                </>
+              )}
+
+              <DropdownMenuSeparator />
+              <DropdownMenuItem asChild className="cursor-pointer justify-center p-2 text-center">
+                <Link href="/notifications">View all notifications</Link>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Theme toggle */}
+          <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+            {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </Button>
+
+          {/* User dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <User className="h-5 w-5" />
+              <Button variant="ghost" size="icon" className="relative h-8 w-8 rounded-full">
+                <Avatar className="h-8 w-8">
+                  <AvatarImage src={user?.user_metadata?.avatar_url || "/placeholder.svg"} alt={user?.email || ""} />
+                  <AvatarFallback>{getUserInitials()}</AvatarFallback>
+                </Avatar>
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <div className="flex items-center justify-start gap-2 p-2">
+                <div className="flex flex-col space-y-1 leading-none">
+                  {user?.email && <p className="font-medium">{user.email}</p>}
+                </div>
+              </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
-                <Link href="/profile" className="flex items-center gap-2 cursor-pointer">
-                  <User className="h-4 w-4" />
-                  Profile
+                <Link href="/profile" className="cursor-pointer">
+                  <User className="mr-2 h-4 w-4" />
+                  <span>Profile</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/settings" className="flex items-center gap-2 cursor-pointer">
-                  <Settings className="h-4 w-4" />
-                  Settings
+                <Link href="/settings" className="cursor-pointer">
+                  <Settings className="mr-2 h-4 w-4" />
+                  <span>Settings</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={handleSignOut} className="flex items-center gap-2 cursor-pointer">
-                <LogOut className="h-4 w-4" />
-                Log out
+              <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600" onClick={() => signOut()}>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>Log out</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
