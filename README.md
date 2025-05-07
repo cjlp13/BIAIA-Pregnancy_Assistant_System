@@ -13,25 +13,38 @@
 - **Appointments** ⏰ :  Schedule and manage your checkups, and locate nearby clinics
 
 ## 🏃 How to Run the Project
-You can access the web app online at _______ (pag tapos na). You’ll receive a confirmation email upon signing up.
 
-If you prefer to run the web app locally, ensure you have the following installed:
-1. Clone the repository:
+You can access the web app online at [**https://biaia.vercel.app/**](https://biaia.vercel.app/). Upon signing up, you’ll receive a confirmation email.
+
+If you prefer to run the web app locally, follow these steps:
+
+1. **Clone the repository:**
 
     ```bash
     git clone https://github.com/cjlp13/BIAIA-Pregnancy_Assistant_System
     ```
-2. Install the required dependencies (Flask, Numpy & Flask-limiter):
-   ```bash
+
+2. **Install the required dependencies:**
+
+    ```bash
     npm install react-day-picker@latest
-    npm install 
+    npm install
     ```
-3. Run the main Python script:
-   ```bash
+
+3. **Set up environment variables:**  
+   Download the `.env.local` file from this [Google Drive folder](https://drive.google.com/drive/folders/1ecKKWvv0CaN3ee86KD6KzQSfBND3tuLs) to access the API keys.  
+   > ⚠️ Access is restricted to authorized members only.  
+   Place the file in the root directory of the project.
+
+4. **Run the development server:**
+
+    ```bash
     npm run dev
     ```
-4. After running the script, open a web browser and go the IP address shown in your terminal.
-The app will be served locally, and you should see it running in your browser.
+
+5. **Access the app:**  
+   Open your web browser and navigate to the IP address shown in your terminal. The app should now be running locally.
+
 
 
 ## 💻 Technologies Used
@@ -48,9 +61,9 @@ The app will be served locally, and you should see it running in your browser.
 
 ## 👥 Contributors
 * [Justine](https://github.com/cjlp13)
-* [Vivs](https://github.com/VivieneGarcia)
-* [Elwin](https://github.com/elwintheDEVisor)
-* [John](https://github.com/John-Yumul)
+* [Vivs](https://github.com/VivieneGarcia)  
+* [Elwin](https://github.com/elwintheDEVisor) 
+* [John](https://github.com/John-Yumul) 
 
 ## 🌷 Acknowledgments
 * [Ma'am Fatima](https://github.com/marieemoiselle) - CS 322: Software Engineering Professor
