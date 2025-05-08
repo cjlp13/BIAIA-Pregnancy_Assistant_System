@@ -72,3 +72,7 @@ If you prefer to run the web app locally, follow these steps:
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=900&size=19&pause=1000&color=F655A6&width=435&lines=Thank+you!+%F0%9F%8C%B7%F0%9F%8C%B7%F0%9F%8C%B7" alt="Typing SVG" /></a>
 
 
+<h3 align="center">🌸🌸🌸</h3>
+
+
+
