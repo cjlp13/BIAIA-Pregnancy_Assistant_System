@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: "BIAIA - Pregnancy Support Platform",
   description: "A comprehensive support platform for pregnant individuals",
   generator: "v0.dev",
+  icons: {
+    icon: [{ url: "/favicon.png", type: "image/png" }],
+  },
 }
 
 export default function RootLayout({
