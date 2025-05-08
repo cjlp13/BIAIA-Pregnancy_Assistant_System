@@ -37,7 +37,7 @@ export default async function handler(
           model: 'gemini-2.0-flash', // Ensure you’re using the correct model
           generation_config: { // Adjust these for more natural output
             temperature: 0.8, // Increase for more creative responses
-            max_output_tokens: 200, // Allow the model to write more freely
+            max_output_tokens: 400, // Allow the model to write more freely
           },
         }
       );
