@@ -173,10 +173,22 @@ export default function AppointmentsPage() {
     fetchAppointments()
   }, [user])
 
+  if (isLoading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
+          <p className="text-muted-foreground">Loading your appointments... ♡</p>
+        </div>
+      </div>
+    )
+  }
+
   const fetchAppointments = async () => {
     if (!user) return
 
     try {
+      setIsLoading(true) // Start loading
       const { data, error } = await supabase
         .from("appointments")
         .select("*")
@@ -188,6 +200,8 @@ export default function AppointmentsPage() {
       setAppointments(data as Appointment[])
     } catch (error: any) {
       console.error("Error fetching appointments:", error.message)
+    } finally {
+      setIsLoading(false) // End loading
     }
   }
 
@@ -419,12 +433,13 @@ export default function AppointmentsPage() {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <h1 className="text-3xl font-bold">Appointments</h1>
         <Button onClick={() => handleOpenDialog()}>
           <Plus className="mr-2 h-4 w-4" /> New Appointment
         </Button>
       </div>
+
 
       <Tabs defaultValue="upcoming" className="space-y-6">
         <TabsList className="grid w-full grid-cols-3">
@@ -538,7 +553,7 @@ export default function AppointmentsPage() {
                 <CardDescription>Select a date to view appointments</CardDescription>
               </CardHeader>
               <CardContent>
-                <Calendar
+                <Calendar 
                   mode="single"
                   selected={selectedDate}
                   onSelect={(date) => date && setSelectedDate(date)}
@@ -628,11 +643,11 @@ export default function AppointmentsPage() {
                       className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     {suggestions.length > 0 && (
-                      <ul className="absolute z-50 w-full bg-white border rounded-lg shadow-lg mt-1 max-h-60 overflow-auto">
+                      <ul className="absolute z-50 w-full bg-secondary border rounded-lg shadow-lg mt-1 max-h-60 overflow-auto">
                         {suggestions.map((suggestion, index) => (
                           <li
                             key={index}
-                            className="p-3 hover:bg-gray-200 cursor-pointer transition-colors"
+                            className="p-3 hover:bg-primary cursor-pointer transition-colors"
                             onClick={() => {
                               setLocationInput(suggestion.place_name)
                               setSuggestions([])
@@ -674,21 +689,21 @@ export default function AppointmentsPage() {
                             e.target.checked ? [...prev, id] : prev.filter((catId) => catId !== id),
                           )
                         }}
+                        className="accent-primary"
                       />
                       <span className="text-sm">{category.name}</span>
                     </label>
                   ))}
                 </div>
               </div>
-
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <h3 className="text-lg font-medium">
-                  {locationInput ? "Nearby OBGYN Clinics" : "Enter a location to find clinics"}
+                  {locationInput ? "Nearby OBGYN Clinics" : "Nearby OBGYN Clinics"}
                 </h3>
 
                 {isSearching ? (
                   <div className="text-center py-8">
-                    <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+                     <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
                     <p className="mt-2 text-muted-foreground">Searching for OBGYN clinics...</p>
                   </div>
                 ) : clinics.length > 0 ? (

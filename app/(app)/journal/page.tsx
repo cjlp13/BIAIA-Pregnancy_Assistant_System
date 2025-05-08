@@ -48,21 +48,24 @@ export default function JournalPage() {
 
   const fetchEntries = async () => {
     if (!user) return
-
+    setIsLoading(true) // Start loading
     try {
       const { data, error } = await supabase
         .from("journal_entries")
         .select("*")
         .eq("user_id", user.id)
         .order("date", { ascending: false })
-
+  
       if (error) throw error
-
+  
       setEntries(data as JournalEntry[])
     } catch (error: any) {
       console.error("Error fetching journal entries:", error.message)
+    } finally {
+      setIsLoading(false) // Stop loading
     }
   }
+  
 
   const resetForm = () => {
     setTitle("")
@@ -170,6 +173,19 @@ export default function JournalPage() {
       score: entry.mood_score,
       mood: entry.mood_type,
     }))
+
+    if (isLoading && entries.length === 0) {
+      return (
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="text-center">
+            <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
+            <p className="text-muted-foreground">Loading your journal... ♡</p>
+          </div>
+        </div>
+      )
+    }
+    
+
 
   return (
     <div className="container mx-auto px-4 py-8">

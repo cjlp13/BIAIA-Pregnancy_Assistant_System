@@ -30,6 +30,7 @@ export default function ChatPage() {
   const { user } = useSupabaseAuth()
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState("")
+  const [loading, setLoading] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
   const [profile, setProfile] = useState<Profile | null>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -46,16 +47,18 @@ export default function ChatPage() {
         setProfile(data as Profile)
 
         // Add welcome message
-        setMessages([
-          {
-            id: "1",
-            role: "assistant",
-            content: `Hello ${data.name}! I'm your pregnancy assistant. How can I help you today?`,
-            timestamp: new Date(),
-          },
-        ])
+        setMessages([{
+          id: "1",
+          role: "assistant",
+          content: `Hello ${data.name}! I'm your pregnancy assistant. How can I help you today?`,
+          timestamp: new Date(),
+        }])
+
+        setLoading(false) // Set loading to false once the profile is fetched
+
       } catch (error: any) {
         console.error("Error fetching profile:", error.message)
+        setLoading(false) // Set loading to false in case of error
       }
     }
 
@@ -161,11 +164,18 @@ User's question: "${message}"
     return `I'm here to help with your pregnancy journey. You can ask me about your symptoms, diet recommendations, safe exercises, or general pregnancy information.`;
   };
   
-  
+  if (loading) {
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <div className="text-center">
+          <div className="mb-4 h-12 w-12 animate-spin rounded-full border-4 border-primary border-t-transparent mx-auto"></div>
+          <p className="text-muted-foreground">Loading Bembang... ♡</p>
+        </div>
+      </div>
+    )
+  }
 
   
-
-
   return (
     <div className="container mx-auto flex h-[calc(100vh-4rem)] flex-col px-4 py-8">
       <Card className="flex h-full flex-col">

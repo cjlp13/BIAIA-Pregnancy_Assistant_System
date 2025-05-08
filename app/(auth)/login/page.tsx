@@ -159,11 +159,7 @@ export default function LoginPage() {
                 <AlertDescription>{loginStatus}</AlertDescription>
               </Alert>
             )}
-
-            {debugInfo && (
-              <div className="text-xs text-muted-foreground overflow-hidden overflow-ellipsis">Debug: {debugInfo}</div>
-            )}
-
+            
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
