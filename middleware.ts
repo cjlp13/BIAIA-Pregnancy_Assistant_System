@@ -4,12 +4,6 @@ import type { NextRequest } from "next/server"
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
-
-  // Allow access to debug page without authentication
-  if (req.nextUrl.pathname === "/debug") {
-    return res
-  }
-
   try {
     const supabase = createMiddlewareClient({ req, res })
 
@@ -32,14 +26,12 @@ export async function middleware(req: NextRequest) {
       // If user is authenticated but trying to access login/register pages
       const isAuthPage = req.nextUrl.pathname === "/login" || req.nextUrl.pathname === "/register"
 
-      if (isAuthPage) {
-        const redirectUrl = req.nextUrl.clone()
-        redirectUrl.pathname = "/dashboard"
-        return NextResponse.redirect(redirectUrl)
-      }
+      // if (isAuthPage) {
+      //   const redirectUrl = req.nextUrl.clone()
+      //   redirectUrl.pathname = "/dashboard"
+      //   return NextResponse.redirect(redirectUrl)
+      // } ENABLE THIS WHEN U WANT SESSIONS TO WORK FOR LOGIN AND REGISTER
 
-      // Check if the user has completed onboarding
-      
     }
   } catch (error) {
     console.error("Middleware error:", error)

@@ -30,38 +30,41 @@ export default function LoginPage() {
     const newUser = searchParams.get("newUser") === "true"
     setIsNewUser(newUser)
   }, [])
-  // Check if already logged in
-  useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession()
-      if (data.session) {
-        setLoginStatus("Already logged in! Redirecting...")
 
-        // Check if user has completed onboarding
-        const { data: profileData, error: profileError } = await supabase
-          .from("profiles")
-          .select("*")
-          .eq("user_id", data.session.user.id)
-          .single()
-
-        console.log("Profile data on auto-login:", profileData)
-
-        if (profileData.onboarding_complete !== true) {
-          // If no profile exists, there's an error, or onboarding is not complete
-          console.log("Redirecting to onboarding: profile incomplete or not found")
-          window.location.href = "/onboarding"
-        } else {
-          // User has completed onboarding, go to dashboard
-          console.log("Redirecting to dashboard: onboarding complete")
-          window.location.href = "/dashboard"
-        }
-      }
-    }
-
-    checkSession()
-  }, [])
+    // COMMENT NLNG SAYANG RIN. Goods din session minsan
+    // useEffect(() => {
+    //   const checkSession = async () => {
+    //     const { data } = await supabase.auth.getSession()
+    //     if (data.session) {
+    //       setLoginStatus("Already logged in! Redirecting...")
+  
+    //       // Check if user has completed onboarding
+    //       const { data: profileData, error: profileError } = await supabase
+    //         .from("profiles")
+    //         .select("*")
+    //         .eq("user_id", data.session.user.id)
+    //         .single()
+  
+    //       console.log("Profile data on auto-login:", profileData)
+  
+    //       if (profileData.onboarding_complete !== true) {
+    //         // If no profile exists, there's an error, or onboarding is not complete
+    //         console.log("Redirecting to onboarding: profile incomplete or not found")
+    //         window.location.href = "/onboarding"
+    //       } else {
+    //         // User has completed onboarding, go to dashboard
+    //         console.log("Redirecting to dashboard: onboarding complete")
+    //         window.location.href = "/dashboard"
+    //       }
+    //     }
+    //   }
+  
+    //   checkSession()
+    // }, [])
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log("you goig here? huh")
     e.preventDefault()
     setIsLoading(true)
     setError(null)
@@ -120,8 +123,17 @@ export default function LoginPage() {
   }
 
   if (!isClient) {
-    return <div>Loading...</div>
+    return (
+      <div className="flex h-screen w-full flex-col items-center justify-center bg-white space-y-4">
+        <div className="w-12 h-12 border-4 border-pink-300 border-t-pink-500 rounded-full animate-spin"></div>
+        <p className="text-pink-500 text-lg font-semibold">
+          Just a moment, darling… ♡
+        </p>
+      </div>
+    )
   }
+  
+
 
   return (
     <div className="flex min-h-screen items-center justify-center px-4 py-12">
