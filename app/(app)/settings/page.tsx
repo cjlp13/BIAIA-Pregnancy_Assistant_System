@@ -200,10 +200,6 @@ export default function SettingsPage() {
                       <Moon className="h-4 w-4" />
                       <span>Dark</span>
                     </SelectItem>
-                    <SelectItem value="system" className="flex items-center gap-2">
-                      <Smartphone className="h-4 w-4" />
-                      <span>System</span>
-                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
