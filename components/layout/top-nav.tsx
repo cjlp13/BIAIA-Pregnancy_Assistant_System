@@ -45,10 +45,27 @@ export function TopNav() {
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
-              <span className="font-bold">B</span>
-            </div>
-            <span className="font-bold">BIAIA</span>
+            {theme === "dark" ? (
+              <img
+                src="/biaia-dark.svg"
+                alt="BIAIA Logo"
+                className="h-8 w-auto"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = "/placeholder-logo.png"
+                }}
+              />
+            ) : (
+              <img
+                src="/biaia-light.svg"
+                alt="BIAIA Logo"
+                className="h-8 w-auto"
+                onError={(e) => {
+                  e.currentTarget.onerror = null
+                  e.currentTarget.src = "/placeholder-logo.png"
+                }}
+              />
+            )}
           </Link>
         </div>
 

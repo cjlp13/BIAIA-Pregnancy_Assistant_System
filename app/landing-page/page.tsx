@@ -9,10 +9,9 @@ export default function LandingPage() {
       <header className="sticky top-0 z-40 border-b bg-white">
         <div className="container flex h-16 items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-pink-500 flex items-center justify-center text-white font-bold">
-              B
-            </div>
-            <span className="text-lg font-bold">BIAIA</span>
+            <Link href="/" className="flex items-center space-x-2">
+              <img src="/biaia-light.svg" alt="BIAIA Logo" className="h-8 w-auto" />
+            </Link>
           </div>
 
           <nav className="hidden md:flex items-center gap-6">
@@ -178,7 +177,7 @@ export default function LandingPage() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="w-full py-12 md:py-24 bg-gradient-to-b from-pink-950 to-pink-400 text-white" >
+        <section id="about" className="w-full py-12 md:py-24 bg-gradient-to-b from-pink-950 to-pink-400 text-white">
           <div className="container px-4 md:px-6">
             <div className="max-w-3xl mx-auto">
               <div className="space-y-4 text-center">
@@ -240,30 +239,29 @@ export default function LandingPage() {
                   github: "https://github.com/John-Yumul",
                 },
               ].map((person, i) => (
-              <Card key={i} className="border-pink-100 bg-white shadow-lg">
-                <CardContent className="p-6">
-                  <div className="flex flex-col items-center space-y-4">
-                    <div className="h-24 w-24 rounded-full bg-pink-100 flex items-center justify-center text-7xl">
-                      💗
+                <Card key={i} className="border-pink-100 bg-white shadow-lg">
+                  <CardContent className="p-6">
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="h-24 w-24 rounded-full bg-pink-100 flex items-center justify-center text-7xl">
+                        💗
+                      </div>
+                      <div className="text-center">
+                        <h4 className="text-xl font-bold text-pink-900">{person.name}</h4>
+                        <p className="text-pink-500 font-medium">{person.role}</p>
+                        <p className="mt-2 text-pink-800">{person.bio}</p>
+                        <a
+                          href={person.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 inline-flex items-center text-pink-600 hover:text-pink-700"
+                        >
+                          <Github className="h-4 w-4 mr-1" />
+                          GitHub Profile
+                        </a>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <h4 className="text-xl font-bold text-pink-900">{person.name}</h4>
-                      <p className="text-pink-500 font-medium">{person.role}</p>
-                      <p className="mt-2 text-pink-800">{person.bio}</p>
-                      <a
-                        href={person.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-4 inline-flex items-center text-pink-600 hover:text-pink-700"
-                      >
-                        <Github className="h-4 w-4 mr-1" />
-                        GitHub Profile
-                      </a>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -299,9 +297,7 @@ export default function LandingPage() {
 
       <footer className="w-full border-t bg-white py-6">
         <div className="container flex items-center justify-center px-4 md:px-6">
-          <p className="text-center text-sm text-pink-800">
-            &copy; {new Date().getFullYear()}. All rights reserved.
-          </p>
+          <p className="text-center text-sm text-pink-800">&copy; {new Date().getFullYear()}. All rights reserved.</p>
         </div>
       </footer>
     </div>
