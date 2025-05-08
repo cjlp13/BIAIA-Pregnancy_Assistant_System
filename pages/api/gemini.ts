@@ -13,7 +13,6 @@ export default async function handler(
     try {
       const { prompt } = req.body;
 
-      // Get the Gemini API key from the environment variable
       const apiKey = process.env.GEMINI_API_KEY;
 
       if (!apiKey) {

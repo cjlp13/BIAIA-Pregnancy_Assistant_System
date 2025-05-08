@@ -75,14 +75,34 @@ export default function SettingsPage() {
   }
 
   const handleDeleteAccount = async () => {
+    const user = (await supabase.auth.getUser()).data.user
+  
+    if (!user) {
+      console.error("No user found.")
+      return
+    }
+  
     try {
-      // This is just a placeholder
+      const response = await fetch("/api/delete-account", {
+        method: "DELETE",  // Change from "POST" to "DELETE"
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ user_id: user.id }),
+      })
+  
+      const data = await response.json()
+  
+      if (!response.ok) throw new Error(data.error || "Deletion failed")
+  
       await supabase.auth.signOut()
-      router.push("/login")
+      router.push("/landing-page")
     } catch (error) {
-      console.error("Error deleting account:", error)
+      console.error("Failed to delete account:", error)
     }
   }
+  
+  
 
   // Update the notifications section in the return statement
   return (
@@ -192,13 +212,17 @@ export default function SettingsPage() {
                     <SelectValue placeholder="Select theme" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="light" className="flex items-center gap-2">
-                      <Sun className="h-4 w-4" />
-                      <span>Light</span>
+                    <SelectItem value="light">
+                      <div className="flex items-center gap-2">
+                        <Sun className="h-4 w-4" />
+                        <span>Light</span>
+                      </div>
                     </SelectItem>
-                    <SelectItem value="dark" className="flex items-center gap-2">
-                      <Moon className="h-4 w-4" />
-                      <span>Dark</span>
+                    <SelectItem value="dark">
+                      <div className="flex items-center gap-2">
+                        <Moon className="h-4 w-4" />
+                        <span>Dark</span>
+                      </div>
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -267,16 +291,6 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-4">
-                <h3 className="text-lg font-medium">Data Management</h3>
-
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="font-medium">Download Your Data</p>
-                    <p className="text-sm text-muted-foreground">Get a copy of all your data stored in BIAIA</p>
-                  </div>
-                  <Button variant="outline">Download</Button>
-                </div>
-
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="font-medium text-destructive">Delete Account</p>

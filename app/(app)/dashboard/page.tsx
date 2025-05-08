@@ -85,232 +85,6 @@ const babyDevelopmentData = [
   },
 ]
 
-const pregnancyTipsData = [
-  {
-    week: 4,
-    dos: [
-      "Confirm your pregnancy with a healthcare provider.",
-      "Start taking a prenatal vitamin with folic acid.",
-      "Avoid alcohol, smoking, and illicit drugs."
-    ],
-    donts: [
-      "Don't take any medications without consulting your doctor.",
-      "Avoid exposure to harmful chemicals or toxins.",
-      "Don't engage in high-impact activities that could cause a fall."
-    ]
-  },
-  {
-    week: 8,
-    dos: [
-      "Schedule your first prenatal appointment.",
-      "Eat a balanced diet rich in fruits, vegetables, and whole grains.",
-      "Stay hydrated by drinking plenty of water."
-    ],
-    donts: [
-      "Avoid raw or undercooked meats, poultry, and seafood.",
-      "Don't consume unpasteurized dairy products.",
-      "Avoid excessive caffeine intake."
-    ]
-  },
-  {
-    week: 12,
-    dos: [
-      "Consider genetic screening tests if recommended by your doctor.",
-      "Continue taking prenatal vitamins.",
-      "Engage in light to moderate exercise as approved by your healthcare provider."
-    ],
-    donts: [
-      "Don't skip meals, especially breakfast.",
-      "Avoid prolonged standing or sitting without breaks.",
-      "Don't ignore any unusual symptoms and report them to your doctor."
-    ]
-  },
-  {
-    week: 16,
-    dos: [
-      "Discuss the possibility of an amniocentesis if recommended.",
-      "Start thinking about baby names and nursery ideas.",
-      "Continue with regular, doctor-approved exercise."
-    ],
-    donts: [
-      "Avoid heavy lifting.",
-      "Don't use hot tubs or saunas.",
-      "Avoid wearing tight clothing that restricts blood flow."
-    ]
-  },
-  {
-    week: 20,
-    dos: [
-      "Attend your mid-pregnancy ultrasound to check baby's anatomy.",
-      "Start feeling your baby's movements (quickening).",
-      "Focus on a nutrient-dense diet to support baby's growth."
-    ],
-    donts: [
-      "Don't ignore any changes in fetal movement and report them to your doctor.",
-      "Avoid excessive weight gain.",
-      "Don't self-medicate for common pregnancy discomforts."
-    ]
-  },
-  {
-    week: 24,
-    dos: [
-      "Discuss gestational diabetes screening with your provider.",
-      "Practice good posture to alleviate back pain.",
-      "Stay active with gentle exercises like walking or swimming."
-    ],
-    donts: [
-      "Avoid sugary drinks and processed foods.",
-      "Don't stand for long periods without support.",
-      "Avoid strenuous activities that could strain your abdomen."
-    ]
-  },
-  {
-    week: 28,
-    dos: [
-      "Start monitoring fetal movements regularly.",
-      "Attend your glucose screening test if scheduled.",
-      "Practice light stretching to ease muscle cramps."
-    ],
-    donts: [
-      "Avoid lying flat on your back for long periods.",
-      "Don’t skip prenatal vitamins.",
-      "Avoid high-sodium processed foods."
-    ]
-  },
-  {
-    week: 32,
-    dos: [
-      "Discuss signs of preterm labor with your doctor.",
-      "Continue to monitor fetal movements.",
-      "Prepare your home for the baby's arrival."
-    ],
-    donts: [
-      "Don't ignore any persistent or severe headaches, vision changes, or swelling.",
-      "Avoid unnecessary travel far from home.",
-      "Don't lift heavy objects or strain yourself."
-    ]
-  },
-  {
-    week: 36,
-    dos: [
-      "Pack your hospital bag.",
-      "Discuss your birth plan in detail with your healthcare provider.",
-      "Continue light exercises and prepare your body for labor."
-    ],
-    donts: [
-      "Don't go too far from home without someone who knows you're pregnant.",
-      "Avoid getting overly stressed or anxious.",
-      "Don't hesitate to call your doctor if you have any concerns."
-    ]
-  },
-  {
-    week: 40,
-    dos: [
-      "Continue to monitor fetal movements.",
-      "Stay in close contact with your healthcare provider.",
-      "Rest and prepare for labor and delivery."
-    ],
-    donts: [
-      "Don't induce labor without medical advice.",
-      "Avoid getting discouraged if labor hasn't started yet.",
-      "Trust your body and your healthcare team."
-    ]
-  }
-]
-
-const safeExerciseData = [
-  {
-    week: 4,
-    safeExercises: [
-      "Walking (light pace, short durations)",
-      "Prenatal yoga (gentle stretches, modifications as needed)",
-      "Swimming (gentle laps)",
-      "Pelvic floor exercises (Kegels)"
-    ],
-  },
-  {
-    week: 8,
-    safeExercises: [
-      "Walking (moderate pace, gradually increasing duration)",
-      "Prenatal yoga (focus on flexibility and balance)",
-      "Swimming (longer durations, varied strokes)",
-      "Low-impact aerobics (modified for pregnancy)"
-    ],
-  },
-  {
-    week: 12,
-    safeExercises: [
-      "Brisk walking",
-      "Prenatal Pilates (focus on core strength and stability)",
-      "Water aerobics",
-      "Stationary cycling (moderate intensity)"
-    ],
-  },
-  {
-    week: 16,
-    safeExercises: [
-      "Longer walks at a comfortable pace",
-      "Prenatal yoga and Pilates (with modifications for growing belly)",
-      "Swimming (all safe strokes)",
-      "Low-impact dance (avoiding jumps and twists)"
-    ],
-  },
-  {
-    week: 20,
-    safeExercises: [
-      "Walking (adjust pace as needed)",
-      "Prenatal yoga (focus on relaxation and hip opening)",
-      "Water aerobics (good for relieving pressure)",
-      "Light strength training (using light weights or resistance bands, focus on major muscle groups)"
-    ],
-  },
-  {
-    week: 24,
-    safeExercises: [
-      "Shorter walks",
-      "Prenatal yoga (focus on breathing and gentle stretches)",
-      "Swimming (supportive and low impact)",
-      "Bodyweight exercises (squats, lunges with support)"
-    ],
-  },
-  {
-    week: 28,
-    safeExercises: [
-      "Gentle walking",
-      "Prenatal yoga (focus on comfort and flexibility)",
-      "Water walking and gentle movements in water",
-      "Pelvic tilts and other gentle back exercises"
-    ],
-  },
-  {
-    week: 32,
-    safeExercises: [
-      "Short, slow walks",
-      "Chair yoga and supported stretches",
-      "Gentle movements in water",
-      "Continued pelvic floor exercises"
-    ],
-  },
-  {
-    week: 36,
-    safeExercises: [
-      "Very short, easy walks",
-      "Gentle stretching while seated or supported",
-      "Relaxation exercises and breathing techniques",
-      "Continued pelvic floor exercises"
-    ],
-  },
-  {
-    week: 40,
-    safeExercises: [
-      "Short, comfortable walks if you feel up to it",
-      "Gentle stretching and relaxation",
-      "Breathing exercises for labor",
-      "Continued pelvic floor exercises"
-    ],
-  }
-]
-
 export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null)
   const [appointments, setAppointments] = useState<any[]>([])
@@ -635,14 +409,6 @@ WHERE NOT EXISTS (SELECT 1 FROM weekly_tips WHERE week_number = week_num);`}
     babyDevelopmentData.find((data) => data.week >= pregnancyWeek) ||
     babyDevelopmentData[babyDevelopmentData.length - 1]
 
-  const pregnancyTips =
-    pregnancyTipsData.find((data) => data.week >= pregnancyWeek) ||
-    pregnancyTipsData[pregnancyTipsData.length - 1];
-
-  const safeExercise =
-    safeExerciseData.find((data) => data.week >= pregnancyWeek) ||
-    safeExerciseData[safeExerciseData.length - 1];
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -747,31 +513,27 @@ WHERE NOT EXISTS (SELECT 1 FROM weekly_tips WHERE week_number = week_num);`}
         <Card>
           <CardHeader>
             <CardTitle>Pregnancy Tips</CardTitle>
-            <CardDescription>Do's and Don'ts for Week {pregnancyTips.week}</CardDescription>
+            <CardDescription>Do's and Don'ts for Week {pregnancyWeek}</CardDescription>
           </CardHeader>
           <CardContent>
-            {pregnancyTips && (
-              <>
-                <div className="mb-4">
-                  <h3 className="text-green-400 font-semibold text-lg">Do's</h3>
-                  <ul className="list-disc list-inside space-y-1">
-                    {pregnancyTips.dos.map((tip, idx) => (
-                      <li key={idx}>{tip}</li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-red-500 font-semibold text-lg">Don'ts</h3>
-                  <ul className="list-disc list-inside space-y-1">
-                    {pregnancyTips.donts.map((tip, idx) => (
-                      <li key={idx}>{tip}</li>
-                    ))}
-                  </ul>
-                </div>
-              </>
-            )}
-
+            <div className="space-y-4">
+              <div>
+                <h3 className="font-medium text-green-600">Do's</h3>
+                <ul className="ml-5 list-disc space-y-1 text-sm">
+                  <li>Stay hydrated by drinking plenty of water</li>
+                  <li>Take prenatal vitamins as prescribed</li>
+                  <li>Get adequate rest and sleep</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-medium text-red-600">Don'ts</h3>
+                <ul className="ml-5 list-disc space-y-1 text-sm">
+                  <li>Avoid alcohol and smoking</li>
+                  <li>Limit caffeine intake</li>
+                  <li>Avoid raw or undercooked foods</li>
+                </ul>
+              </div>
+            </div>
             <div className="mt-4 grid grid-cols-2 gap-2">
               <Button variant="outline" asChild>
                 <Link href="/tracker">Weekly Tracker</Link>
@@ -788,18 +550,14 @@ WHERE NOT EXISTS (SELECT 1 FROM weekly_tips WHERE week_number = week_num);`}
         <Card>
           <CardHeader className="pb-2">
             <CardTitle>Safe Exercises</CardTitle>
-            <CardDescription>Exercises for Week {pregnancyTips.week}</CardDescription>
           </CardHeader>
           <CardContent>
-            {safeExercise && (
-              <>
-                <ul className="list-disc list-outside pl-5 space-y-1">
-                  {safeExercise.safeExercises.map((exercise, idx) => (
-                    <li key={idx}>{exercise}</li>
-                  ))}
-                </ul>
-              </>
-            )}
+            <ul className="ml-5 list-disc space-y-1 text-sm">
+              <li>Walking</li>
+              <li>Swimming</li>
+              <li>Prenatal yoga</li>
+              <li>Stationary cycling</li>
+            </ul>
           </CardContent>
         </Card>
 
