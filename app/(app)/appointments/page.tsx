@@ -127,6 +127,17 @@ export default function AppointmentsPage() {
     return () => clearTimeout(timeoutId)
   }, [locationInput])
 
+  // Time for error prompt
+  useEffect(() => {
+    if (error) {
+      const timer = setTimeout(() => {
+        setError(null)
+      }, 3000) // hides the error after 3 seconds
+  
+      return () => clearTimeout(timer) // cleanup on re-render
+    }
+  }, [error])
+
   // Group appointments by date for calendar view
   const appointmentsByDate: Record<string, Appointment[]> = {}
   appointments.forEach((appointment) => {
@@ -214,6 +225,32 @@ export default function AppointmentsPage() {
     if (!user) {
       setError("You must be logged in to create an appointment")
       return
+    }
+
+    // Input validations
+    if (!title.trim()) {
+      setError("Title is required.");
+      return;
+    }
+
+    if (!notes.trim()) {
+      setError("Notes are required.");
+      return;
+    }
+
+    const now = new Date();
+    now.setSeconds(0, 0); // Remove seconds and milliseconds
+
+    const appointmentDateTime = new Date(`${format(date, "yyyy-MM-dd")}T${time}`);
+
+    if (isNaN(appointmentDateTime.getTime())) {
+      setError("Invalid date or time.");
+      return;
+    }
+
+    if (appointmentDateTime < now) {
+      setError("Cannot schedule an appointment in the past.");
+      return;
     }
 
     setIsLoading(true)
