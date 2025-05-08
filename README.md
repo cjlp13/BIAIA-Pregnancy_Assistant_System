@@ -1,4 +1,4 @@
-
+<p align="center"><img src="https://github.com/cjlp13/BIAIA-Pregnancy_Assistant_System/blob/main/public/biaia-light.svg" alt="Invertrix Logo"></p>
 <h1 align="center">BIAIA: A Pregnancy Assistant 🤰💖</h1>
 <p align="center">by <strong>Team 6</strong> 💕</p>
 
@@ -65,12 +65,9 @@ If you prefer to run the web app locally, follow these steps:
 * [Elwin Barredo](https://github.com/elwintheDEVisor) 
 * [John Yumul](https://github.com/John-Yumul)  
 
-## 🌷 Acknowledgments
-* [Ma'am Fatima](https://github.com/marieemoiselle) - CS 322: Software Engineering Professor
-* We sincerely thank Ma'am Fatima for her detailed modules, clear instructions, and consistent guidance throughout the development of this project. Her structured approach made it easier for us to understand software engineering concepts and apply them effectively in building BIAIA.
----
-<p align="center">
-  <a href="https://git.io/typing-svg">
-    <img src="https://readme-typing-svg.demolab.com?font=&weight=500&size=17&duration=2000&pause=1000&color=F655A63&center=true&vCenter=true&width=435&lines=05+/+07+/+2025" alt="Typing SVG">
-  </a>
-</p>
+# 🌷 Acknowledgments
+* [Ma'am Fatima](https://github.com/marieemoiselle) - CS 322: Software Engineering Professor  
+* We sincerely thank Ma'am Fatima for her detailed modules, clear instructions, and consistent guidance throughout the development of this project. Her structured approach made it easier for us to understand software engineering concepts and apply them effectively in building BIAIA.  
+<a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=900&size=19&pause=1000&color=F655A6&width=435&lines=Thank+you!+%F0%9F%8C%B7%F0%9F%8C%B7%F0%9F%8C%B7" alt="Typing SVG" /></a>
+
+
