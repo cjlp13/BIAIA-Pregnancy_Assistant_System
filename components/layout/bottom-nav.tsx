@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Home, Calendar, BookOpen, MessageCircle, User, AlarmClock } from "lucide-react"
+import { Home, Calendar, BookOpen, MessageCircle, AlarmClock } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { motion } from "framer-motion"
 
@@ -39,6 +39,9 @@ export function BottomNav() {
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50 flex h-16 items-center justify-around border-t bg-background px-4 shadow-lg md:hidden">
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-background rounded-full p-1 shadow-md">
+        <img src="/logo.svg" alt="BIAIA Logo" className="h-6 w-auto" />
+      </div>
       {navItems.map((item) => {
         const isActive = pathname === item.href
         return (

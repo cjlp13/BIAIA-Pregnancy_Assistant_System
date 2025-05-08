@@ -45,60 +45,59 @@ export function TopNav() {
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
           <Link href="/dashboard" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-500 text-white">
-              <span className="font-bold">B</span>
-            </div>
-            <span className="font-bold">BIAIA</span>
+            <img src="/logo.svg" alt="BIAIA Logo" className="h-8 w-auto" />
           </Link>
         </div>
 
-        <nav className="mx-auto flex items-center space-x-6">
-          <Link
-            href="/dashboard"
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
-            )}
-          >
-            Dashboard
-          </Link>
-          <Link
-            href="/tracker"
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/tracker" ? "text-primary" : "text-muted-foreground",
-            )}
-          >
-            Tracker
-          </Link>
-          <Link
-            href="/journal"
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/journal" ? "text-primary" : "text-muted-foreground",
-            )}
-          >
-            Journal
-          </Link>
-          <Link
-            href="/chat"
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/chat" ? "text-primary" : "text-muted-foreground",
-            )}
-          >
-            Chat
-          </Link>
-          <Link
-            href="/appointments"
-            className={cn(
-              "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/appointments" ? "text-primary" : "text-muted-foreground",
-            )}
-          >
-            Appointments
-          </Link>
-        </nav>
+        <div className="flex-1 flex justify-center">
+          <nav className="flex items-center space-x-6">
+            <Link
+              href="/dashboard"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Dashboard
+            </Link>
+            <Link
+              href="/tracker"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/tracker" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Tracker
+            </Link>
+            <Link
+              href="/journal"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/journal" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Journal
+            </Link>
+            <Link
+              href="/chat"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/chat" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Chat
+            </Link>
+            <Link
+              href="/appointments"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-primary",
+                pathname === "/appointments" ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              Appointments
+            </Link>
+          </nav>
+        </div>
 
         <div className="flex items-center space-x-4 ml-auto">
           {/* Notifications dropdown */}
