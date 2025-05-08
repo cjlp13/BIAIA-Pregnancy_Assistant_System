@@ -13,15 +13,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Bell, LogOut, User, Settings, Sun, Moon } from "lucide-react"
+import { Bell, LogOut, User, Settings, Sun, Moon, Menu } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useTheme } from "next-themes"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { useEffect, useState } from "react"
+import { useIsMobile } from "@/hooks/use-mobile"
 
 export function TopNav() {
   const pathname = usePathname()
   const { user, signOut } = useSupabaseAuth()
   const { notifications, unreadCount, markAsRead } = useNotifications()
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const isMobile = useIsMobile()
+
+  // After mounting, we have access to the theme
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Get user initials for avatar
   const getUserInitials = () => {
@@ -40,82 +50,126 @@ export function TopNav() {
     })
   }
 
+  const NavLinks = () => (
+    <>
+      <Link
+        href="/dashboard"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        Dashboard
+      </Link>
+      <Link
+        href="/tracker"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/tracker" ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        Tracker
+      </Link>
+      <Link
+        href="/journal"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/journal" ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        Journal
+      </Link>
+      <Link
+        href="/chat"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/chat" ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        Chat
+      </Link>
+      <Link
+        href="/appointments"
+        className={cn(
+          "text-sm font-medium transition-colors hover:text-primary",
+          pathname === "/appointments" ? "text-primary" : "text-muted-foreground",
+        )}
+      >
+        Appointments
+      </Link>
+    </>
+  )
+
   return (
     <header className="sticky top-0 z-40 border-b bg-background">
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-2">
-          <Link href="/dashboard" className="flex items-center space-x-2">
-            {theme === "dark" ? (
-              <img
-                src="/biaia-dark.svg"
-                alt="BIAIA Logo"
-                className="h-8 w-auto"
-                onError={(e) => {
-                  e.currentTarget.onerror = null
-                  e.currentTarget.src = "/placeholder-logo.png"
-                }}
-              />
-            ) : (
-              <img
-                src="/biaia-light.svg"
-                alt="BIAIA Logo"
-                className="h-8 w-auto"
-                onError={(e) => {
-                  e.currentTarget.onerror = null
-                  e.currentTarget.src = "/placeholder-logo.png"
-                }}
-              />
-            )}
-          </Link>
+          {/* Show logo on desktop, hide on mobile */}
+          {!isMobile && (
+            <Link href="/dashboard" className="flex items-center space-x-2">
+              {mounted ? (
+                theme === "dark" ? (
+                  <img
+                    src="/biaia-dark.svg"
+                    alt="BIAIA Logo"
+                    className="h-8 w-auto"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null
+                      e.currentTarget.src = "/placeholder-logo.png"
+                    }}
+                  />
+                ) : (
+                  <img
+                    src="/biaia-light.svg"
+                    alt="BIAIA Logo"
+                    className="h-8 w-auto"
+                    onError={(e) => {
+                      e.currentTarget.onerror = null
+                      e.currentTarget.src = "/placeholder-logo.png"
+                    }}
+                  />
+                )
+              ) : (
+                // Fallback logo during SSR to prevent hydration mismatch
+                <div className="h-8 w-24 bg-muted rounded animate-pulse" />
+              )}
+            </Link>
+          )}
+
+          {/* Mobile hamburger menu */}
+          {isMobile && (
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="h-5 w-5" />
+                  <span className="sr-only">Toggle menu</span>
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[250px] sm:w-[300px]">
+                <SheetTitle className="text-left"></SheetTitle>
+                <div className="flex flex-col gap-6 py-4">
+                  <Link href="/dashboard" className="flex items-center space-x-2">
+                    {mounted && (
+                      <img
+                        src={theme === "dark" ? "/biaia-dark.svg" : "/biaia-light.svg"}
+                        alt="BIAIA Logo"
+                        className="h-8 w-auto"
+                      />
+                    )}
+                  </Link>
+                  <nav className="flex flex-col space-y-4">
+                    <NavLinks />
+                  </nav>
+                </div>
+              </SheetContent>
+            </Sheet>
+          )}
         </div>
 
+        {/* Navigation links for desktop */}
         <div className="flex-1 flex justify-center">
-          <nav className="flex items-center space-x-6">
-            <Link
-              href="/dashboard"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === "/dashboard" ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              Dashboard
-            </Link>
-            <Link
-              href="/tracker"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === "/tracker" ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              Tracker
-            </Link>
-            <Link
-              href="/journal"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === "/journal" ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              Journal
-            </Link>
-            <Link
-              href="/chat"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === "/chat" ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              Chat
-            </Link>
-            <Link
-              href="/appointments"
-              className={cn(
-                "text-sm font-medium transition-colors hover:text-primary",
-                pathname === "/appointments" ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              Appointments
-            </Link>
+          <nav className="hidden md:flex items-center space-x-6">
+            <NavLinks />
           </nav>
         </div>
 
@@ -173,7 +227,16 @@ export function TopNav() {
 
           {/* Theme toggle */}
           <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
-            {theme === "dark" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            {mounted ? (
+              theme === "dark" ? (
+                <Moon className="h-5 w-5" />
+              ) : (
+                <Sun className="h-5 w-5" />
+              )
+            ) : (
+              // Fallback icon during SSR to prevent hydration mismatch
+              <div className="h-5 w-5 rounded-full bg-muted" />
+            )}
           </Button>
 
           {/* User dropdown */}

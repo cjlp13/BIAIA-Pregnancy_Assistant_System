@@ -42,7 +42,6 @@ export default function OnboardingPage() {
           .single()
 
         console.log("Profile data:", profileData)
-        // Only redirect if onboarding is explicitly marked as complete
         if (profileData && profileData.onboarding_complete === true) {
           router.push("/dashboard")
         }

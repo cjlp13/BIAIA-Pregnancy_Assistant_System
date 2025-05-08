@@ -62,6 +62,11 @@ CREATE POLICY "Users can update their own profile"
   ON profiles FOR UPDATE
   USING (auth.uid() = user_id);
 
+CREATE POLICY "Users can delete their own profile"
+  ON profiles FOR DELETE
+  USING (auth.uid() = user_id);
+
+
 -- Appointments policies
 CREATE POLICY "Users can view their own appointments"
   ON appointments FOR SELECT
