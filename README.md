@@ -1,18 +1,18 @@
 <p align="center"><img src="https://github.com/cjlp13/BIAIA-Pregnancy_Assistant_System/blob/main/public/biaia-light.svg" alt="Invertrix Logo"></p>
-<h1 align="center">BIAIA: A Pregnancy Assistant 🤰💖</h1>
+<h1 align="center">BIAIA: A Pregnancy Assistant</h1>
 <p align="center">by <strong>Team 6</strong> 💕</p>
 
-## ⭐ Project Overview
+## 🌸 Project Overview
 **BIAIA** is a web app designed to assist pregnant individuals with a variety of features like appointment scheduling, AI-powered chatbot, and personalized pregnancy tracking. It aims to improve health and well-being during pregnancy in line with the UN Sustainable Development Goal #3.
 
-## 📱 Key Features
+## 🌸 Key Features
 - **Home Page** 🏠: Reminders, safe exercises, and pregnancy tips.
 - **Weekly Tracker** 📅: Pregnancy milestones and advice based on your week.
 - **Chat** 💬: AI-powered chatbot to answer pregnancy-related questions.
 - **Journal** 📓: Track your feelings and experiences throughout the pregnancy.
 - **Appointments** ⏰ :  Schedule and manage your checkups, and locate nearby clinics
 
-## 🏃 How to Run the Project
+## 🌸 How to Run the Project
 
 You can access the web app online at [**https://biaia.vercel.app/**](https://biaia.vercel.app/). Upon signing up, you’ll receive a confirmation email.
 
@@ -47,25 +47,26 @@ If you prefer to run the web app locally, follow these steps:
 
 
 
-## 💻 Technologies Used
+## 🌸 Technologies Used
 - **Frontend**: React, Next.js
+- **Language:** TypeScript  
 - **Database and Backend**: Supabase
 - **Styling**: Tailwind CSS
 
 
-## 🧬 API Used
+## 🌸 API Used
 * **Gemini AI:** Powers the AI chatbot to provide conversational pregnancy tips and support.
 * **Foursquare:** Locates nearby OBGYN clinics and healthcare facilities based on user input location.
 * **Mapbox:** Provides real-time location suggestions as users type and retrieves geocoordinates. 
 * **Supabase:** Handles user authentication and stores users, journal entries, appointments, and other data.
 
-## 👥 Contributors
+## 🌸 Contributors
 * [Justine Padua](https://github.com/cjlp13) 
 * [Viviene Garcia](https://github.com/VivieneGarcia)  
 * [Elwin Barredo](https://github.com/elwintheDEVisor) 
 * [John Yumul](https://github.com/John-Yumul)  
 
-# 🌷 Acknowledgments
+# 🌸 Acknowledgments
 * [Ma'am Fatima](https://github.com/marieemoiselle) - CS 322: Software Engineering Professor  
 * We sincerely thank Ma'am Fatima for her detailed modules, clear instructions, and consistent guidance throughout the development of this project. Her structured approach made it easier for us to understand software engineering concepts and apply them effectively in building BIAIA.  
 <a href="https://git.io/typing-svg"><img src="https://readme-typing-svg.herokuapp.com?font=Poppins&weight=900&size=19&pause=1000&color=F655A6&width=435&lines=Thank+you!+%F0%9F%8C%B7%F0%9F%8C%B7%F0%9F%8C%B7" alt="Typing SVG" /></a>
