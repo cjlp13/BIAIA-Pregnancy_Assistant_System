@@ -224,7 +224,7 @@ export default function LandingPage() {
                   name: "Elwin Barredo",
                   role: "Full Stack Developer",
                   bio: "Can design, code, and debug all layers",
-                  github: "https://github.com/VivieneGarcia",
+                  github: "https://github.com/elwintheDEVisor",
                 },
                 {
                   name: "Vivs Garcia",
