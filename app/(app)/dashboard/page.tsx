@@ -486,6 +486,14 @@ export default function DashboardPage() {
     babyDevelopmentData.find((data) => data.week >= pregnancyWeek) ||
     babyDevelopmentData[babyDevelopmentData.length - 1]
 
+  const pregnancyTips =
+    pregnancyTipsData.find((data) => data.week >= pregnancyWeek) ||
+    pregnancyTipsData[pregnancyTipsData.length - 1];
+
+  const safeExercise =
+    safeExerciseData.find((data) => data.week >= pregnancyWeek) ||
+    safeExerciseData[safeExerciseData.length - 1];
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
@@ -590,27 +598,30 @@ export default function DashboardPage() {
         <Card>
           <CardHeader>
             <CardTitle>Pregnancy Tips</CardTitle>
-            <CardDescription>Do's and Don'ts for Week {pregnancyWeek}</CardDescription>
+            <CardDescription>Do's and Don'ts for Week {pregnancyTips.week}</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              <div>
-                <h3 className="font-medium text-green-600">Do's</h3>
-                <ul className="ml-5 list-disc space-y-1 text-sm">
-                  <li>Stay hydrated by drinking plenty of water</li>
-                  <li>Take prenatal vitamins as prescribed</li>
-                  <li>Get adequate rest and sleep</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-medium text-red-600">Don'ts</h3>
-                <ul className="ml-5 list-disc space-y-1 text-sm">
-                  <li>Avoid alcohol and smoking</li>
-                  <li>Limit caffeine intake</li>
-                  <li>Avoid raw or undercooked foods</li>
-                </ul>
-              </div>
-            </div>
+            {pregnancyTips && (
+              <>
+                <div className="mb-4">
+                  <h3 className="text-green-400 font-semibold text-lg">Do's</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    {pregnancyTips.dos.map((tip, idx) => (
+                      <li key={idx}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div>
+                  <h3 className="text-red-500 font-semibold text-lg">Don'ts</h3>
+                  <ul className="list-disc list-inside space-y-1">
+                    {pregnancyTips.donts.map((tip, idx) => (
+                      <li key={idx}>{tip}</li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            )}
             <div className="mt-4 grid grid-cols-2 gap-2">
               <Button variant="outline" asChild>
                 <Link href="/tracker">Weekly Tracker</Link>
@@ -627,14 +638,18 @@ export default function DashboardPage() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle>Safe Exercises</CardTitle>
+            <CardDescription>Safe Exercises for Week {safeExercise.week}</CardDescription>
           </CardHeader>
           <CardContent>
-            <ul className="ml-5 list-disc space-y-1 text-sm">
-              <li>Walking</li>
-              <li>Swimming</li>
-              <li>Prenatal yoga</li>
-              <li>Stationary cycling</li>
-            </ul>
+            {safeExercise && (
+              <>
+                <ul className="list-disc list-outside pl-5 space-y-1">
+                  {safeExercise.safeExercises.map((exercise, idx) => (
+                    <li key={idx}>{exercise}</li>
+                  ))}
+                </ul>
+              </>
+            )}
           </CardContent>
         </Card>
 
