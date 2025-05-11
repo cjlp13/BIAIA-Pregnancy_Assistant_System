@@ -1,5 +1,9 @@
+
+
+
 <p align="center"><img src="https://github.com/cjlp13/BIAIA-Pregnancy_Assistant_System/blob/main/public/biaia-light.svg" alt="Invertrix Logo"></p>
 <h1 align="center">BIAIA: A Pregnancy Assistant</h1>
+<p align="center"><a href="https://biaia.vercel.app/"><img src="https://img.shields.io/badge/Site-BIAIA-F655A6?style=flat" alt="BIAIA Site Badge"></a></p>
 <p align="center">by <strong>Team 6</strong> 💕</p>
 
 <details>
@@ -37,6 +41,10 @@
 | **Frontend**          | [![React][react]][react-url] [![Next.js][next]][next-url] [![TypeScript][ts]][ts-url] [![Tailwind][tailwind]][tailwind-url]                                   |
 | **Backend & Database**| [![Next.js API Routes][api]][api-url] [![Supabase][supabase]][supabase-url]                                                                                |
 | **APIs**              | [![Gemini AI][gemini]][gemini-url] [![Foursquare API][foursquare]][foursquare-url] [![Mapbox][mapbox]][mapbox-url]             |
+| **Version Control & Deployment** | [![GitHub][github]][github-url] [![Vercel][vercel]][vercel-url] |
+| **Project Management**         | [![Trello][trello]][trello-url] |
+
+ 
 
 ##  🌸 Installation Instructions
 
@@ -152,6 +160,7 @@ Visit [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the insta
 
 <h3 align="center">🌸🌸🌸</h3>
 
+<!-- Badge URLs -->
 [react]: https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black  
 [react-url]: https://reactjs.org/  
 
@@ -178,6 +187,15 @@ Visit [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the insta
 
 [mapbox]: https://img.shields.io/badge/Mapbox-4264FB?style=for-the-badge&logo=mapbox&logoColor=white  
 [mapbox-url]: https://www.mapbox.com/
+
+[vercel]: https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white
+[vercel-url]: https://vercel.com/
+
+[github]: https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white
+[github-url]: https://github.com/VivieneGarcia/BIAIA
+
+[trello]: https://img.shields.io/badge/Trello-0052CC?style=for-the-badge&logo=trello&logoColor=white
+[trello-url]: https://trello.com/
 
 ---
 
