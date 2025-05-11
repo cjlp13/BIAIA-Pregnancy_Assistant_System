@@ -2,26 +2,41 @@
 <h1 align="center">BIAIA: A Pregnancy Assistant</h1>
 <p align="center">by <strong>Team 6</strong> 💕</p>
 
+<details>
+  <summary><strong>📖 Table of Contents</strong></summary>
+
+1. [Project Overview](#-project-overview)
+   - [Objectives](#-objectives)
+   - [Technologies Used](#-technologies-used)
+2. [Installation Instructions](#-installation-instructions)
+3. [Usage Instructions](#-usage-instructions)
+4. [Contributors](#-contributors)
+5. [Course Instructor](#-course-instructor)
+6. [Acknowledgment](#-acknowledgment)
+
+</details>
+
+
 ## 🌸 Project Overview
 **BIAIA** is a web app that assists pregnant individuals by offering features like AI-powered chat, appointment scheduling, clinic locator, weekly tracking, and journaling. It promotes health and well-being in line with UN Sustainable Development Goal #3.
 
-### 🎯Objectives  
+<img src = "https://github.com/cjlp13/BIAIA-Pregnancy_Assistant_System/blob/main/public/Sustainable_Development_Goal_03GoodHealth.svg.png" width=150px height=150px>
+
+
+### 🎯 Objectives  
 - Promote holistic health and emotional support during pregnancy.  
 - Consolidate various pregnancy-related features into a unified web platform.  
 - Offer accessible, AI-powered assistance for common health concerns.  
 - Make appointment scheduling and clinic location easy and intuitive.  
 - Encourage self-reflection and mood tracking via journaling features.
 
-### ⚙️ Technologies Used
-- **Frontend**: React, Next.js
-- **Language:** TypeScript  
-- **Database and Backend**: Supabase
-- **Styling**: Tailwind CSS
-- **APIs**:
-  - **Gemini AI** — Powers the AI chatbot that provides conversational pregnancy-related guidance and emotional support.
-  - **Foursquare API** — Helps locate nearby OB-GYN clinics and healthcare facilities based on user location input.
-  - **Mapbox API** — Offers real-time location autocomplete and returns precise geocoordinates for maps and directions.
-  - **Supabase:** Handles user authentication and stores users, journal entries, appointments, and other data.
+### ⚙ Technologies Used
+
+| Category              | Technologies                                                                                                                                                   |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Frontend**          | [![React][react]][react-url] [![Next.js][next]][next-url] [![TypeScript][ts]][ts-url] [![Tailwind][tailwind]][tailwind-url]                                   |
+| **Backend & Database**| [![Next.js API Routes][api]][api-url] [![Supabase][supabase]][supabase-url]                                                                                |
+| **APIs**              | [![Gemini AI][gemini]][gemini-url] [![Foursquare API][foursquare]][foursquare-url] [![Mapbox][mapbox]][mapbox-url]             |
 
 ##  🌸 Installation Instructions
 
@@ -59,40 +74,34 @@ If you prefer to run the web app locally, follow these steps:
 ## 🌸 Usage Instructions
 
 Follow these detailed steps to use BIAIA, with sample inputs and expected outputs:
+### 1. **Access the App**  
+Visit [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the install guide.
 
-### 1. **Access the Application**  
-Visit: [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the installation instructions.
+### 2. **Register**  
+- Click **Register** and fill in (example):  
+  - *Name*: Maria Santos  
+  - *Email*: maria@example.com  
+  - *Password*: securePass123  
+  - *EDD*: 2025-10-10  
+- Click **Submit** and confirm your email.  
+- ✅ You’ll be redirected to the dashboard.
 
-### 2. **Register a New Account**  
-- Click “Register”.  
-- Example input details:  
-  - **Name**: *Maria Santos*  
-  - **Email**: *maria@example.com*  
-  - **Password**: *securePass123*  
-  - **Expected Delivery Date**: *2025-10-10*  
-- Click **Submit**.  
-- ✅ *You will receive a confirmation email. Once confirmed, you’ll be redirected to the dashboard.*
-
-### 3. **Login to the System**  
-- Enter your registered email and password.  
-- Click **Login**.  
-- ✅ *You’ll be taken to the Dashboard.*
-
----
+### 3. **Login**  
+- Enter your credentials and click **Login**.  
+- ✅ You’ll land on your personalized dashboard.
 
 ### 4. **Dashboard**  
-- Displays:  
-  - 🍼 Current Pregnancy Week (e.g., Week 18) and details
-  - ✅ Upcoming Appointments
-  - 🧘 Safe exercises, tips, shortcut for other features of the app
+- Shows:  
+  - 🍼 Pregnancy week (e.g., Week 18)  
+  - ✅ Upcoming appointments  
+  - 🧘 Tips, safe exercises, and quick access links
 
-### 5. **Weekly Tracker**  
-- Automatically shows current week milestones and overview.  
-- **Example Output**:  
-  - **Week 18**  
-    - *Baby*: "Your baby is the size of a sweet potato."  
-    - *Mom*: "You may start feeling the baby move."  
-    - *Advice*: "Sleep on your side and stay hydrated."
+### 5. **Tracker**  
+- Auto-updates with your current week.  
+- Example (Week 18):  
+  - *Baby*: Size of a sweet potato  
+  - *Mom*: May feel first movements  
+  - *Tip*: Sleep on your side
 
 ### 6. **Chatbot (Chat Page)**  
 - Type a question like:  
@@ -103,29 +112,29 @@ Visit: [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the inst
 ### 7. **Journal**  
 - Click “Add Entry”.  
 - Input:  
-  - **Title**: *Feeling Kicks!*  
+  - **Title**: *Feeling Kicks!*
+  - **Date**: *2025-06-20* 
   - **Description**: *Felt small fluttering movements today!*  
   - **Mood**: Positive (9)  
 - Click “Save”.  
-- ✅ Entry is now visible in the Journal with edit and delete options.
+- ✏️ Entry is now visible in the Journal with edit and delete options.
 
 ### 8. **Appointments**  
 - Click “Add Appointment”.  
 - Input:  
-  - **Title**: * Visit St. Luke’s Medical Center*  
-  - **Date**: *2025-06-20*  
-  - **Time**: *10:00 AM*  
+  - **Title**: *Visit St. Luke’s Medical Center*
+  - **Date**: *2025-06-20* 
+  - **Time**: *10:00 AM*   
   - **Notes**: *Ultrasound Checkup*  
-- ✅ Appointment appears on dashboard.
-
-- You may also use the location input:  
-  - Input: *“Quezon City”*  
-  - Output: Displays a list of nearby OB-GYN clinics using **Foursquare + Mapbox**.  
-  - Click on a clinic to open its location in Google Maps.
+- Click “Save”.  
+- ✏️ Appointment appears with edit and delete options.
+- 🔍 You may also use the **Find Clinics** section:  
+  - Input: *“Quezon City”*, Category: OB-GYN Clinic
+  - Output: Displays a list of nearby OB-GYN clinics.
+  - Click on Get Directions to open its location in Google Maps.
 
 ### 9. **Logout**  
-- Click on your profile or menu icon.  
-- Select “Logout” to end your session.
+- Click your profile/menu icon → **Logout** to end your session.
 
 ## 🌸 Contributors
 * [Justine Padua](https://github.com/cjlp13) 
@@ -142,6 +151,33 @@ Visit: [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the inst
 
 
 <h3 align="center">🌸🌸🌸</h3>
+
+[react]: https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=react&logoColor=black  
+[react-url]: https://reactjs.org/  
+
+[next]: https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white  
+[next-url]: https://nextjs.org/  
+
+[ts]: https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white  
+[ts-url]: https://www.typescriptlang.org/  
+
+[tailwind]: https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white  
+[tailwind-url]: https://tailwindcss.com/  
+
+[api]: https://img.shields.io/badge/Next.js_API-000000?style=for-the-badge&logo=nextdotjs&logoColor=white  
+[api-url]: https://nextjs.org/docs/api-routes/introduction  
+
+[supabase]: https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white  
+[supabase-url]: https://supabase.com/  
+
+[gemini]: https://img.shields.io/badge/Gemini_AI-4285F4?style=for-the-badge&logo=google&logoColor=white  
+[gemini-url]: https://deepmind.google/technologies/gemini/  
+
+[foursquare]: https://img.shields.io/badge/Foursquare-FA4778?style=for-the-badge&logo=foursquare&logoColor=white  
+[foursquare-url]: https://developer.foursquare.com/  
+
+[mapbox]: https://img.shields.io/badge/Mapbox-4264FB?style=for-the-badge&logo=mapbox&logoColor=white  
+[mapbox-url]: https://www.mapbox.com/
 
 ---
 
