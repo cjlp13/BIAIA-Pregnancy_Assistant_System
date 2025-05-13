@@ -61,7 +61,7 @@ If you prefer to run the web app locally, follow these steps:
 2. **Install the required dependencies:**
 
     ```bash
-    npm install react-day-picker@latest
+    npm install --legacy-peer-deps
     npm install
     ```
 
@@ -85,15 +85,17 @@ Follow these detailed steps to use BIAIA, with sample inputs and expected output
 ### 1. **Access the App**  
 Visit [https://biaia.vercel.app/](https://biaia.vercel.app/) or follow the install guide.
 
-### 2. **Register**  
+### 2. **Register and Onboarding**  
 - Click **Register** and fill in (example):  
-  - *Name*: Maria Santos  
   - *Email*: maria@example.com  
   - *Password*: securePass123  
-  - *EDD*: 2025-10-10  
 - Click **Submit** and confirm your email.  
-- ✅ You’ll be redirected to the dashboard.
-
+- **Onboarding** fill in(example):
+  - *Name*: Maria 
+  - *Due Date*: 10-10-2025
+  - *Allergies* - Nuts
+  - *Symptoms* - Nausea
+    
 ### 3. **Login**  
 - Enter your credentials and click **Login**.  
 - ✅ You’ll land on your personalized dashboard.
