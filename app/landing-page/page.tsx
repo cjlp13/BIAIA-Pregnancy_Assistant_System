@@ -112,7 +112,7 @@ export default function LandingPage() {
                   </div>
                 </CardContent>
               </Card>
-
+            
               {/* Chat Feature */}
               <Card className="border-pink-100 bg-white">
                 <CardContent className="p-6">
