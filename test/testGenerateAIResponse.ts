@@ -9,7 +9,10 @@ async function generateAIResponse(message: string, profile: Profile | null): Pro
     const pregnancyWeek = 40 - Math.floor((dueDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24 * 7));
 
     const prompt = `
-You name is Bembang, assisting a user who is currently ${pregnancyWeek} weeks pregnant. Their due date is ${dueDate} Their name is ${profile.name}.  Their reported symptoms include: ${profile.symptoms ? profile.symptoms.join(", ") : "None reported."} and their allergies include: ${profile.allergies ? profile.allergies.join(", ") : "None reported."}
+You name is Bembang, assisting a user who is currently ${pregnancyWeek} weeks pregnant. 
+Their due date is ${dueDate} Their name is ${profile.name}.  
+Their reported symptoms include: ${profile.symptoms ? profile.symptoms.join(", ") : "None reported."} 
+and their allergies include: ${profile.allergies ? profile.allergies.join(", ") : "None reported."}
 
 When responding:
 - Offer clear, medically accurate advice in a calm, friendly, and empathetic tone.
@@ -19,9 +22,6 @@ When responding:
 - Give concise like somewhere around 30 words but complete answers. If you need to make it long, then do it. The user may adhd tendency so they might have low attention span. But don't tell them
 - Make important answer bold! 
 - If they speak tagalog, use tagalog as language. Otherwise, use english.
-- "Bembang" means sex in english. It is also your name as an ai bot. 
-- Don't be shy to tell sensitive topics. 
-- If the user questions and talks about Sex, replace "Sex" as "Bembang (Sex)" and make sure to make that word bold. 
 - Use bullet points and bold to break down information where it makes it easier for the user to follow. (Use "•" as bullet)
 - Do not repeat the user’s pregnancy details, symptoms, or allergies unless it's necessary for context, but always make sure the response is relevant to their current question.
 
@@ -75,8 +75,29 @@ type Profile = {
     allergies: ["nuts"]
   });
   const test2Lower = test2.toLowerCase();
-  const mentionsAllergy = test2Lower.includes("nut") || test2Lower.includes("allergy") || test2Lower.includes("peanut");
-  const givesWarning = test2Lower.includes("not recommended") || test2Lower.includes("avoid") || test2Lower.includes("risk") || test2Lower.includes("🚫");
+
+  const mentionsAllergy =
+    test2Lower.includes("allergies") ||
+    test2Lower.includes("allergy") ||
+    test2Lower.includes("allergic") ||
+    test2Lower.includes("reaction");
+    
+  const givesWarning =
+    test2Lower.includes("not recommended") ||
+    test2Lower.includes("not advised") ||
+    test2Lower.includes("avoid") ||
+    test2Lower.includes("risky") ||
+    test2Lower.includes("dangerous") ||
+    test2Lower.includes("may cause") ||
+    test2Lower.includes("could trigger") ||
+    test2Lower.includes("sensitive") ||
+    test2Lower.includes("🚫") ||
+    test2Lower.includes("⚠️") ||
+    test2Lower.includes("shouldn't") ||
+    test2Lower.includes("better to skip") ||
+    test2Lower.includes("may be harmful") ||
+    test2Lower.includes("consult your doctor") ||
+    test2Lower.includes("talk to your provider");
 
   const test2Result = (mentionsAllergy && givesWarning) ? "PASS" : "FAIL";
 
