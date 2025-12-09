@@ -16,7 +16,7 @@ export default async function handler(
   try {
     const { prompt } = req.body;
     const apiKey = process.env.GEMINI_API_KEY;
-    const model = 'gemini-2.5-flash';
+    const model = 'gemini-2.5-flash-lite';
 
     if (!apiKey) {
       if (process.env.NODE_ENV !== 'test') {
